@@ -22,12 +22,25 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel>
-                                <TextBlock Text="{Binding Path=MarkerChildOpen}" Visibility="{Binding Path=HasChild}" >
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="MouseLeftButtonDown">
-                                        <i:InvokeCommandAction Command="{Binding Path=DataContext.ChildOpenChangeCommand, RelativeSource={RelativeSource AncestorType=TextBlock}}" />
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
+                                <TextBlock>
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=HasChild}" Value="False">
+                                                    <Setter Property="Visibility" Value="Hidden" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=IsChildOpen}" Value="True">
+                                                    <Setter Property="Text" Value="▼" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=IsChildOpen}" Value="False">
+                                                    <Setter Property="Text" Value="▶" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                    <TextBlock.InputBindings>
+                                        <MouseBinding MouseAction="LeftClick" Command="{Binding Path=ChildOpenChangeCommand}" />
+                                    </TextBlock.InputBindings>
                                 </TextBlock>
                             </StackPanel>
                         </DataTemplate>

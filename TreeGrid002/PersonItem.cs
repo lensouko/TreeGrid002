@@ -24,7 +24,7 @@ namespace TreeGrid002
             childs.Add(child);
         }
 
-        public Visibility HasChild => childs.Any() ? Visibility.Visible : Visibility.Hidden;
+        public bool HasChild => childs.Any();
 
 
         private bool isChildOpen = true;
@@ -38,8 +38,6 @@ namespace TreeGrid002
                 SetChildVisibility();
             }
         }
-
-        public string MarkerChildOpen => IsChildOpen ? "▼" : "▶";
 
         private DelegateCommand childOpenChangeCommand;
 
@@ -55,7 +53,6 @@ namespace TreeGrid002
         {
             RaisePropertyChanged(nameof(IsChildOpen));
             RaisePropertyChanged(nameof(VisibleState));
-            RaisePropertyChanged(nameof(MarkerChildOpen));
         }
 
         public void SetChildVisibility()
